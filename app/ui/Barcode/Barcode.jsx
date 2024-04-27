@@ -26,7 +26,7 @@ const Barcode = () => {
         }
 
 
-    })
+    }, [])
    
   return (
     <div>
