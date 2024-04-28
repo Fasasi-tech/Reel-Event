@@ -1,10 +1,12 @@
 'use client'
 import Link from 'next/link'
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import Login from '../../log/Login'
 import ToggleMode from '../../ToggleMode'
 import { FaBars } from "react-icons/fa";
 import { MdCancel } from "react-icons/md";
+import {  useDispatch, useSelector } from "react-redux";
+
 
 
 
@@ -12,7 +14,10 @@ import { MdCancel } from "react-icons/md";
 const Navbars = () => {
 
     const [open, setOpen] = useState(false)
+    
+    
 
+    const {userInfo} = useSelector((state) =>state.auth)
   return (
     <div className={`w-full  lg:px-8 relative `}>
         <div className='mt-4 px-0'  >
@@ -31,11 +36,22 @@ const Navbars = () => {
 
                     <div className='md:flex md:gap-4 md:items-center font-bold sm:hidden '>
                         {/* <div className='flex gap-4 items-center font-bold sm:hidden md:flex'> */}
-                        <div><Link href='/dashboard' className='text-[#83ed6b]  hidden sm:block'>Dashboard</Link></div>
+                        {userInfo ? (
+                            <>
+                            <p>{userInfo.data.user.first_name}</p>
+                             <div className='text-[#83ed6b]  hidden sm:block'>Logout</div>
+                        </>
+                        ):(
+                            <>
+                           
+                            <div><Link href='/dashboard' className='text-[#83ed6b]  hidden sm:block'>Dashboard</Link></div>
                         <div><Link href='/register' className='text-[#83ed6b]  hidden sm:block' >Register</Link></div>
                         <div className='text-[#83ed6b]  hidden sm:block'><Login /></div>
                         <div className='text-[#83ed6b]  hidden sm:block'><ToggleMode /></div>
-                        {/* </div> */}
+                            </>
+                        )}
+                        
+                      
                     </div>
 
                     {

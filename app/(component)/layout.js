@@ -9,6 +9,8 @@ import { Inter } from 'next/font/google'
 import '../globals.css'
 import Navbars from '../ui/register/Navbar/Navbar'
 import { ThemeProvider } from '../ui/ThemeProvider'
+import StoreProvider from '../redux/provider'
+
 // import Sidebar from '../ui/dashboard/Sidebar/Sidebar'
 // import Navbar from '../ui/dashboard/Navbar/Navbar'
 // import { ContextProvider, useStateContext } from '../context/ContextProvider'
@@ -30,9 +32,10 @@ export default function RootLayout({ children }) {
 
   return (
     // <StoreProvider>
-   
+   <StoreProvider>
     <html lang="en">
         <body className={`${inter.className} scroll `} >
+          
             <ThemeProvider
                    attribute="class"
                    defaultTheme="system"
@@ -49,9 +52,10 @@ export default function RootLayout({ children }) {
                 </div>
                 </div>
             </ThemeProvider>
+          
         </body>
     </html>
 
-    // </StoreProvider>
+     </StoreProvider>
   )
 }
