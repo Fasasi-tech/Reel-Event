@@ -42,7 +42,7 @@ const Register = () => {
         try{
             await register(values).unwrap()
        
-            const toastInstance = toast("User registered successfully!", {
+            const toastInstance = toast("Invitee registered successfully!", {
                 position: "top-center", 
             });
         return () => {
@@ -61,7 +61,7 @@ const Register = () => {
             };
               } else {
                 // display generic error message
-                alert("Error registering user: " + err.message);
+                alert("Error registering Invitee: " + err.message);
               }
         }
     }
@@ -77,7 +77,7 @@ const Register = () => {
             first_name:"",
             last_name:"",
             email:"",
-            phone_number:0,
+            phone_number:null,
             state:"",
             gender:""
         },
@@ -195,6 +195,7 @@ const Register = () => {
                         onBlur={formik.handleBlur}
                         className='p-2 w-full outline-none border border-solid rounded-lg border-slate-300 bg-white dark:bg-black text-gray-500 h-12 bg-transparent  '
                     >
+                        <option value=''></option>
                         <option value='Male'>Male</option>
                         <option value='Female'>Female</option>
                     </select>

@@ -44,7 +44,7 @@ const Navbars = () => {
             <div className='bg-white dark:bg-black  border dark:border-slate-900 p-4 rounded-md flex items-center justify-between align-center'>
                 <div className='flex w-full items-center justify-between gap-4'>
                     <div>
-                        <h3 className='font-serif  text-[#83ed6b] text-2xl font-black'>Reel Event</h3>
+                        <h3 className='font-serif  text-[#83ed6b] text-2xl font-black'><Link href='/register'>Reel Event </Link></h3>
                     </div>
                     <div className='text-[#83ed6b] md:hidden '><ToggleMode /></div>
                     <div onClick={() =>setOpen(!open)} className='text-2xl absolute right-8 top-6 cursor-pointer md:hidden text-[#83ed6b]'>
@@ -64,6 +64,7 @@ const Navbars = () => {
                             <div><Link href='/dashboard' className='text-[#83ed6b] hover:text-[#c2d2bf]  hidden sm:block'>Dashboard</Link></div>
                             <div><Link href='/register' className='text-[#83ed6b] hover:text-[#c2d2bf]  hidden sm:block' >Register</Link></div>
                             <div><Link href='/barcode' className='text-[#83ed6b] hover:text-[#c2d2bf]  hidden sm:block' >Barcode</Link></div>
+                            <div><Link href='/invitees' className='text-[#83ed6b] hover:text-[#c2d2bf]  hidden sm:block' >Invitees</Link></div>
                              <div className='text-[#83ed6b] hover:text-[#a3de96]  hidden sm:block cursor-pointer' onClick={logoutHandler}>Logout</div>
                              <div className='text-[#83ed6b] hover:text-[#a3de96]   hidden sm:block'><ToggleMode /></div>
                         </>
@@ -87,6 +88,7 @@ const Navbars = () => {
                         {userInfo && <div className='pt-4'><Link href='/dashboard' className='text-[#83ed6b] '>Dashboard</Link></div>}
                             <div className='pt-4'><Link href='/register' className='text-[#83ed6b] ' >Register</Link></div>
                            {userInfo &&  <div className='pt-4'><Link href='/barcode' className='text-[#83ed6b]' >Barcode</Link></div>}
+                           {userInfo &&  <div className='pt-4'><Link href='/invitees' className='text-[#83ed6b]' >Invitees</Link></div>}
                             <div className=' pt-4'>{!userInfo && <Login />}</div>
                             <div className=''>{userInfo && <button className='text-[#83ed6b] cursor-pointer' onClick={logoutHandler}>Logout</button>}</div>
                             <div className='pt-4'>{userInfo && <button className='bg-[#83ed6b] text-white p-2 rounded-lg cursor-pointer' >{userInfo.data.user.first_name}</button>}</div>

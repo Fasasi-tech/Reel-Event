@@ -40,6 +40,13 @@ const counts= stateData.map((data) => data.count)
           'rgb(255, 205, 86)',
           'rgb(201, 203, 207)',
           'rgb(54, 162, 235)',
+          '#00FFFF',
+          '#3D802C',
+          '#FF00FF',
+          '#FFC0CB',
+          '#FFD700',
+          '#87CEEB',
+          '#A52A2A'
         ],
       },
     ],

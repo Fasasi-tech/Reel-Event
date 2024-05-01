@@ -2,7 +2,7 @@
 import { apiSlice } from "./apiSlice"; 
 
 
-const USERS_URL='http://localhost:3001/api/v1/users'
+const USERS_URL='https://event-backend-70e2.onrender.com/api/v1/users'
 
 export const userApiSlice = apiSlice.injectEndpoints({
     endpoints:(builder) => ({
@@ -32,11 +32,8 @@ export const userApiSlice = apiSlice.injectEndpoints({
             
         }),
         events: builder.query({
-            query: () => ({
-              url: `${USERS_URL}/getUsers`,
-              method: 'GET' // Assuming this is a GET request
-            }),
-            providesTags: ['Users']
+            query: () =>  `${USERS_URL}/getUsers`,
+            providesTags: ['Post']
           }),
           genderStats:builder.query({
             query: () => `${USERS_URL}/getGenderStats`,
