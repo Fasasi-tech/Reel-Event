@@ -10,7 +10,7 @@ import '../globals.css'
 import Navbars from '../ui/register/Navbar/Navbar'
 import { ThemeProvider } from '../ui/ThemeProvider'
 import StoreProvider from '../redux/provider'
-import ToastProvider from '../toast'
+
 
 
 
@@ -32,7 +32,6 @@ export default function RootLayout({ children }) {
    <StoreProvider>
     <html lang="en" suppressHydrationWarning={true}>
         <body className={`${inter.className} scroll `} >
-          <ToastProvider>
             <ThemeProvider
                    attribute="class"
                    defaultTheme="system"
@@ -49,7 +48,7 @@ export default function RootLayout({ children }) {
                 </div>
                 </div>
             </ThemeProvider>
-            </ToastProvider>
+           
           
         </body>
     </html>

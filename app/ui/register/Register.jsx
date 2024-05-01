@@ -2,8 +2,8 @@
 import React, {useState} from 'react'
 import {useFormik} from 'formik'
 import { useRegisterMutation } from '../slices/usersApiSlice'
-import {toast} from 'react-toastify'
 import { states } from './State'
+
 
 const validate = values =>{
     const errors={}
@@ -41,24 +41,14 @@ const Register = () => {
     const handleSubmit = async(values)=>{
         try{
             await register(values).unwrap()
-       
-            const toastInstance = toast("Invitee registered successfully!", {
-                position: "top-center", 
-            });
-        return () => {
-            toast.dismiss(toastInstance);
-        };
-        }catch (err){
+           alert('invitee registered successfully')
+           
+        }
+        catch (err){
             console.log(err.message)
             if (err.data && err.data.message) {
-                // display unique email error message
-                // alert(err.data.message);
-                const toastInstance = toast(err.data.message, {
-                    position: "top-center", 
-                });
-            return () => {
-                toast.dismiss(toastInstance);
-            };
+               alert(err.data.message)
+                
               } else {
                 // display generic error message
                 alert("Error registering Invitee: " + err.message);
