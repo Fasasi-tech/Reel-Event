@@ -64,7 +64,7 @@ const handleSubmit = async (values) =>{
     router.push('/dashboard')                                   
     
   } catch (err) {
-    toast.error(err.data?.message || err.error)
+    alert(err.data?.message || err.error)
   }
 }
 
