@@ -1,6 +1,9 @@
 'use client'
-import React from 'react'
+import React, {useState} from 'react'
 import {useFormik} from 'formik'
+import { useRegisterMutation } from '../slices/usersApiSlice'
+import {toast} from 'react-toastify'
+import { states } from './State'
 
 const validate = values =>{
     const errors={}
@@ -31,19 +34,56 @@ const validate = values =>{
     return errors;
 }
 
-const Register = () => {
 
+const Register = () => {
+    const [register, { status, error,isLoading}] = useRegisterMutation()
+
+    const handleSubmit = async(values)=>{
+        try{
+            await register(values).unwrap()
+       
+            const toastInstance = toast("User registered successfully!", {
+                position: "top-center", 
+            });
+        return () => {
+            toast.dismiss(toastInstance);
+        };
+        }catch (err){
+            console.log(err.message)
+            if (err.data && err.data.message) {
+                // display unique email error message
+                // alert(err.data.message);
+                const toastInstance = toast(err.data.message, {
+                    position: "top-center", 
+                });
+            return () => {
+                toast.dismiss(toastInstance);
+            };
+              } else {
+                // display generic error message
+                alert("Error registering user: " + err.message);
+              }
+        }
+    }
+ 
+
+    if (status ==='error'){
+        return <div>Something went wrong</div>
+    }
+
+    
     const formik = useFormik({
         initialValues:{
             first_name:"",
             last_name:"",
             email:"",
-            phone_number:"",
+            phone_number:0,
             state:"",
             gender:""
         },
         onSubmit: (values, onSubmitProps) => {
             console.log(values)
+            handleSubmit(values)
              onSubmitProps.setSubmitting(false)
              onSubmitProps.resetForm()
         },
@@ -55,6 +95,7 @@ const Register = () => {
     <div className='w-full md:bg-white dark:bg-black shadow-lg rounded-lg md:w-full mx-auto ' >
         <div className='lg:w-[80%] w-full h-full md:mt-24   py-24 md:px-4  mx-auto my-auto'>
         <form onSubmit={formik.handleSubmit}>
+      
             <div className='flex justify-start text-2xl font-medium mb-8'>
                 <h1 className='font-serif md:text-4xl text-[#83ed6b]'>Invitee Registration</h1>
             </div>
@@ -98,7 +139,7 @@ const Register = () => {
                     />
                     {formik.touched.email && formik.errors.email ?<div className='text-red-500 pl-2 font-semibold'>{formik.errors.email}</div>: null}
                 </div>
-                <div className='h-12 mb-12 w-full'>
+                {/* <div className='h-12 mb-12 w-full'>
                     <label htmlFor="Phone Number" className='block text-base mb-2 text-gray-500 pl-2'>Phone Number</label>
                     <input
                         type='text'
@@ -110,11 +151,11 @@ const Register = () => {
                         className='p-2 w-full outline-none border border-solid rounded-lg border-slate-300 text-gray-500 h-12 bg-transparent  '
                     />
                     {formik.touched.phone_number && formik.errors.phone_number ?<div className='text-red-500 pl-2 font-semibold'>{formik.errors.phone_number}</div>: null}
-                </div>
+                </div> */}
                 <div className='h-12 mb-12 w-full'>
                     <label htmlFor="Phone Number" className='block text-base mb-2 text-gray-500 pl-2'>Phone Number</label>
                     <input
-                        type='text'
+                        type='number'
                         name="phone_number"
                         id='phone_number'
                         value={formik.values.phone_number}
@@ -126,28 +167,37 @@ const Register = () => {
                 </div>
                 <div className='h-12 mb-12 w-full'>
                     <label htmlFor="State of Residence" className='block text-base mb-2 text-gray-500 pl-2'>State of Residence</label>
-                    <input
+                    <select
                         type='text'
-                        name="phone_number"
-                        id='phone_number'
-                        value={formik.values.phone_number}
+                        name="state"
+                        id='state'
+                        value={formik.values.state}
                         onChange={formik.handleChange}
                         onBlur={formik.handleBlur}
-                        className='p-2 w-full outline-none border border-solid rounded-lg border-slate-300 text-gray-500 h-12 bg-transparent  '
-                    />
+                        className='p-2 w-full outline-none border border-solid rounded-lg border-slate-300 bg-white dark:bg-black text-gray-500 h-12 bg-transparent  '
+                    >
+                        
+                            {states.map((state) =>(
+                              <option key={state.code} value={state.name}>{state.name} </option>
+                            ))}
+                        
+                    </select>
                     {formik.touched.phone_number && formik.errors.phone_number ?<div className='text-red-500 pl-2 font-semibold'>{formik.errors.phone_number}</div>: null}
                 </div>
                 <div className='h-12 mb-12 w-full'>
                     <label htmlFor="Gender" className='block text-base mb-2 text-gray-500 pl-2'>Gender</label>
-                    <input
+                    <select
                         type='text'
                         name="gender"
                         id='gender'
                         value={formik.values.gender}
                         onChange={formik.handleChange}
                         onBlur={formik.handleBlur}
-                        className='p-2 w-full outline-none border border-solid rounded-lg border-slate-300 text-gray-500 h-12 bg-transparent  '
-                    />
+                        className='p-2 w-full outline-none border border-solid rounded-lg border-slate-300 bg-white dark:bg-black text-gray-500 h-12 bg-transparent  '
+                    >
+                        <option value='Male'>Male</option>
+                        <option value='Female'>Female</option>
+                    </select>
                     {formik.touched.gender && formik.errors.gender ?<div className='text-red-500 pl-2 font-semibold'>{formik.errors.gender}</div>: null}
                 </div>
             </div>

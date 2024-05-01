@@ -1,5 +1,6 @@
 import Register from '@/app/ui/register/Register'
 import React from 'react'
+import dynamic from "next/dynamic";
 
 
 const page = () => {
@@ -10,4 +11,4 @@ const page = () => {
   )
 }
 
-export default page
+export default dynamic (() => Promise.resolve(page), {ssr: false})

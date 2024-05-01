@@ -10,12 +10,9 @@ import '../globals.css'
 import Navbars from '../ui/register/Navbar/Navbar'
 import { ThemeProvider } from '../ui/ThemeProvider'
 import StoreProvider from '../redux/provider'
+import ToastProvider from '../toast'
 
-// import Sidebar from '../ui/dashboard/Sidebar/Sidebar'
-// import Navbar from '../ui/dashboard/Navbar/Navbar'
-// import { ContextProvider, useStateContext } from '../context/ContextProvider'
-// import { Provider } from 'react-redux'
-// import StoreProvider from '../redux/provider'
+
 
 
 
@@ -33,9 +30,9 @@ export default function RootLayout({ children }) {
   return (
     // <StoreProvider>
    <StoreProvider>
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning={true}>
         <body className={`${inter.className} scroll `} >
-          
+          <ToastProvider>
             <ThemeProvider
                    attribute="class"
                    defaultTheme="system"
@@ -52,6 +49,7 @@ export default function RootLayout({ children }) {
                 </div>
                 </div>
             </ThemeProvider>
+            </ToastProvider>
           
         </body>
     </html>
