@@ -27,7 +27,7 @@ const Barcode = () => {
             let id = null;
             parts.forEach(part => {
                 const [key, value]=part.split(':')
-                if(key.trim() ==='User id'){
+                if(key.trim() ==='id'){
                     id= value.trim()
                 }
             })

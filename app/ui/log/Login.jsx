@@ -17,6 +17,7 @@ import {
   import { Input } from "@/components/ui/input"
   import { Label } from "@/components/ui/label"
   import { Button } from "@/components/ui/button"
+  import { FiEye, FiEyeOff } from "react-icons/fi";
  
 
 
@@ -37,6 +38,14 @@ import {
   
 
 const Login = () => {
+
+  const [showPassword, setShowPassword] =useState(false)
+
+  
+const handleToggle = ()=>{
+  setShowPassword(!showPassword)
+}
+
 
   const router = useRouter();
 
@@ -118,25 +127,28 @@ const handleSubmit = async (values) =>{
                 />
                  {formik.touched.email && formik.errors.email ?<div className='text-red-500 pl-2 font-semibold'>{formik.errors.email}</div>: null}
               </div>
-              <div className="grid grid-cols-4 items-center gap-4">
+              <div className="grid grid-cols-4 items-center gap-4 relative">
                 <Label htmlFor="password" className="">
                   Password
                 </Label>
                 <Input
                 name='password'
                   id="password"
-                  type="password"
+                  type={showPassword ? 'text':'password'}
                   values={formik.values.password}
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
                   defaultValue=""
                   className="col-span-3"
                 />
+                 <div className='z-50 absolute top-2 right-2'>
+                    <button type='button' onClick={handleToggle}>{showPassword ? <FiEyeOff className='text-2xl text-[#83ed6b] '/> : <FiEye className='text-2xl text-[#83ed6b]' />  }</button> 
+                </div>
                  {formik.touched.password && formik.errors.password ?<div className='text-red-500 pl-2 font-semibold'>{formik.errors.password}</div>: null}
 
               </div>
               <DialogFooter>
-          <Button type="submit" className={!formik.isValid || formik.isSubmitting? 'opacity-50 cursor-not-allowed':''} disabled={!formik.isValid || formik.isSubmitting}>Submit</Button>
+          <Button type="submit" className={!formik.isValid || formik.isSubmitting? 'opacity-50 cursor-not-allowed':''} disabled={!formik.isValid || formik.isSubmitting}>{formik.isSubmitting ? 'Submitting':'Submit'}</Button>
         </DialogFooter>
         </div>
         </form>
