@@ -44,7 +44,7 @@ const Navbars = () => {
             <div className='bg-white dark:bg-black  border dark:border-slate-900 p-4 rounded-md flex items-center justify-between align-center'>
                 <div className='flex w-full items-center justify-between gap-4'>
                     <div>
-                        <h3 className='font-serif  text-[#83ed6b] text-2xl font-black'><Link href='/register'>Reel Event </Link></h3>
+                        <h3 className='font-serif  text-[#83ed6b]  md:text-xl lg:text-2xl font-black'><Link href='/register'>USSSO class 94 event </Link></h3>
                     </div>
                     <div className='text-[#83ed6b] md:hidden '><ToggleMode /></div>
                     <div onClick={() =>setOpen(!open)} className='text-2xl absolute right-8 top-6 cursor-pointer md:hidden text-[#83ed6b]'>
