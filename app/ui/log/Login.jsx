@@ -13,7 +13,7 @@ import {
   import {useDispatch, useSelector} from 'react-redux'
   import { useLoginMutation } from "../slices/usersApiSlice"
   import { setCredentials } from "../slices/authSlice"
-  import {useFormik} from 'formik'
+  import {Formik} from 'formik'
   import { Input } from "@/components/ui/input"
   import { Label } from "@/components/ui/label"
   import { Button } from "@/components/ui/button"
@@ -21,20 +21,20 @@ import {
  
 
 
-  const validate = values =>{
-    const errors={}
-    if (!values.password){
-        errors.password='Required'
-    }
+  // const validate = values =>{
+  //   const errors={}
+  //   if (!values.password){
+  //       errors.password='Required'
+  //   }
   
-    if (!values.email){
-      errors.email='Required'
-  }
+  //   if (!values.email){
+  //     errors.email='Required'
+  // }
 
     
   
-    return errors;
-  }
+  //   return errors;
+  // }
   
 
 const Login = () => {
@@ -62,37 +62,36 @@ useEffect(() => {
   }
 }, [router, userInfo]);
 
-// if (userInfo){
-//   redirect('dashboard')
-// }
 
-const handleSubmit = async (values) =>{
+const handleSubmit = async (values, {setSubmitting, resetForm}) =>{
   try {
     const res = await login(values).unwrap()
+    setSubmitting(true);
     //setting user to our localstorage
     dispatch(setCredentials({...res}))  
-    router.push('/dashboard')                                   
+    router.push('/dashboard')
+    resetForm();                                   
     
   } catch (err) {
     alert(err.data?.message || err.error)
   }
 }
 
-  const formik = useFormik({
-    initialValues:{
-        email:"",
-        password:""
+//   const formik = useFormik({
+//     initialValues:{
+//         email:"",
+//         password:""
         
-    },
-    validate,
-    onSubmit: (values, onSubmitProps) => {
-        console.log(values)
-        handleSubmit(values)
-         onSubmitProps.setSubmitting(false)
-         onSubmitProps.resetForm()
-    },
+//     },
+//     validate,
+//     onSubmit: (values, onSubmitProps) => {
+//         console.log(values)
+//         handleSubmit(values)
+//          onSubmitProps.setSubmitting(false)
+//          onSubmitProps.resetForm()
+//     },
     
-})
+// })
   return (
     <Dialog>
       <DialogTrigger asChild>
@@ -107,7 +106,39 @@ const handleSubmit = async (values) =>{
             Make changes to your profile here. Click save when you're done.
           </DialogDescription> */}
         </DialogHeader>
-        <form onSubmit={formik.handleSubmit}>
+        <Formik initialValues ={{
+           email:"",
+           password:""
+        }}
+        
+        validate ={(values) => {
+          const errors={}
+          if (!values.password){
+              errors.password='Required'
+          }
+        
+          if (!values.email){
+            errors.email='Required'
+        }
+      
+          
+        
+          return errors;
+        }}
+        
+        onSubmit ={handleSubmit}
+        >
+            {({
+         values,
+         errors,
+         touched,
+         handleChange,
+         handleBlur,
+         handleSubmit,
+         isSubmitting,
+         /* and other goodies */
+       }) =>(
+        <form onSubmit={handleSubmit}>
         <div className="grid gap-4 py-4">
         
             <div className="grid grid-cols-4 items-center gap-4">
@@ -119,14 +150,14 @@ const handleSubmit = async (values) =>{
                 type='text'
                 name="email"
                   id="email"
-                  values={formik.values.email}
-                  onChange={formik.handleChange}
-                  onBlur={formik.handleBlur}
+                  values={values.email}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
                   defaultValue=""
                   
                   className="col-span-3"
                 />
-                 {formik.touched.email && formik.errors.email ?<div className='text-red-500 pl-2 font-semibold'>{formik.errors.email}</div>: null}
+                 {touched.email && errors.email ?<div className='text-red-500 pl-2 font-semibold'>{errors.email}</div>: null}
               </div>
               <div className="grid grid-cols-4 items-center gap-4 relative">
                 <Label htmlFor="password" className="">
@@ -136,24 +167,27 @@ const handleSubmit = async (values) =>{
                 name='password'
                   id="password"
                   type={showPassword ? 'text':'password'}
-                  values={formik.values.password}
-                  onChange={formik.handleChange}
-                  onBlur={formik.handleBlur}
+                  values={values.password}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
                   defaultValue=""
                   className="col-span-3"
                 />
                  <div className='z-50 absolute top-2 right-2'>
                     <button type='button' onClick={handleToggle}>{showPassword ? <FiEyeOff className='text-2xl text-[#83ed6b] '/> : <FiEye className='text-2xl text-[#83ed6b]' />  }</button> 
                 </div>
-                 {formik.touched.password && formik.errors.password ?<div className='text-red-500 pl-2 font-semibold'>{formik.errors.password}</div>: null}
+                 {touched.password && errors.password ?<div className='text-red-500 pl-2 font-semibold'>{errors.password}</div>: null}
 
               </div>
-              <DialogFooter>
+             
               
-          <Button type="submit" className={!formik.isValid || formik.isSubmitting? 'opacity-50 cursor-not-allowed':''} disabled={!formik.isValid || formik.isSubmitting}>{formik.isSubmitting ? 'Submitting':'Submit'}</Button>
-        </DialogFooter>
+              <div className=''>
+                <button type="submit" className={`bg-[#83ed6b] w-full  text-white text-2xl rounded-lg py-2 ${ isSubmitting? 'opacity-50 cursor-not-allowed':''} `} disabled={ isSubmitting}> {isSubmitting ? 'Submitting...' : 'Submit'}</button>
+             </div> 
+       
         </div>
-        </form>
+        </form>)}
+        </Formik>
       
       </DialogContent>
      

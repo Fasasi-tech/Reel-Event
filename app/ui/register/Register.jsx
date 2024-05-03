@@ -6,63 +6,12 @@ import { useRegisterMutation } from '../slices/usersApiSlice'
 import { states } from './State'
 
 
-// const validate = values =>{
-//     const errors={}
-//     if (!values.first_name){
-//         errors.first_name='Required'
-//     }
-
-//     if(!values.last_name){
-//         errors.last_name='Required'
-//     }
-
-//     if(!values.email){
-//         errors.email='Required'
-//     }
-
-//     if(!values.phone_number){
-//         errors.phone_number='Required'
-//     }
-
-//     if(!values.gender){
-//         errors.gender='Required'
-//     }
-
-//     if(!values.state){
-//         errors.state='Required'
-//     }
-
-//     return errors;
-// }
 
 
 const Register = () => {
     const [register, { status, error,isLoading}] = useRegisterMutation()
     const [submittings, setSubmittings] = useState(false);
 
-    // const handleSubmit = async(values)=>{
-    //     try{
-          
-    //         await register(values).unwrap()
-    //         setSubmittings(true)
-    //        alert('invitee registered successfully')
-    //       // onSubmitProps.resetForm();
-       
-         
-           
-    //     }
-    //     catch (err){
-    //         console.log(err.message)
-    //         if (err.data && err.data.message) {
-    //            alert(err.data.message)
-                
-    //           } else {
-    //             // display generic error message
-    //             alert("Error registering Invitee: " + err.message);
-    //           }
-              
-    //     }
-    // }
     const handleSubmit = async (values, { setSubmitting, resetForm }) => {
         try {
           // Assuming `register` is a function that sends form data to the backend
@@ -85,26 +34,7 @@ const Register = () => {
     if (status ==='error'){
         return <div>Something went wrong</div>
     }
-
-    
-    // const formik = useFormik({
-    //     initialValues:{
-    //         first_name:"",
-    //         last_name:"",
-    //         email:"",
-    //         phone_number:null,
-    //         state:"",
-    //         gender:""
-    //     },
-    //     onSubmit: (values, onSubmitProps) => {
-    //         console.log(values)
-    //         onSubmitProps.setSubmitting(true);
-    //         handleSubmit(values, onSubmitProps)
-    //          onSubmitProps.setSubmitting(false)
-    //         //  onSubmitProps.resetForm()
-    //     },
-    //     validate
-    // })
+ 
 
  
   return (
@@ -147,23 +77,7 @@ const Register = () => {
 
      return errors;
  }}
-        
-        //  onSubmit = (values, {setSubmitting}) => {
-        //   console.log(values)
-           
-        //    handleSubmit(values)
-        //    setSubmitting(false)
-        //    //  onSubmitProps.resetForm()
-        //  },
-        
-        // onSubmit={(values) => {
-           
-        //     handleSubmit(values)
-        //     console.log(values)
-            
-            
-            
-        // }}
+       
         onSubmit={handleSubmit}
 
     
