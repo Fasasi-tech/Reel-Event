@@ -34,6 +34,7 @@ const page = ({params}) => {
         <p className='text-lg font-serif'><span className='text-[#83ed6b]'>Email: </span>{user.email}</p>
         <p className='text-lg font-serif'><span className='text-[#83ed6b]'> Phone: </span>{user.phone_number}</p>
         <p className='text-lg font-serif'><span className='text-[#83ed6b]'>State: </span>{user.state}</p>
+        <p className='text-lg font-serif'><span className='text-[#83ed6b]'>Date Registered: </span>{user.createdAt}</p>
       </div>
         ):(
             <p>Invitee not found!</p>

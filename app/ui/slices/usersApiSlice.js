@@ -2,7 +2,8 @@
 import { apiSlice } from "./apiSlice"; 
 
 
-const USERS_URL='https://event-backend-70e2.onrender.com/api/v1/users'
+//const USERS_URL='https://event-backend-70e2.onrender.com/api/v1/users'
+const USERS_URL='http://localhost:8000/api/v1/users'
 
 export const userApiSlice = apiSlice.injectEndpoints({
     endpoints:(builder) => ({

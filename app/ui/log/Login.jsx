@@ -19,22 +19,6 @@ import {
   import { Button } from "@/components/ui/button"
   import { FiEye, FiEyeOff } from "react-icons/fi";
  
-
-
-  // const validate = values =>{
-  //   const errors={}
-  //   if (!values.password){
-  //       errors.password='Required'
-  //   }
-  
-  //   if (!values.email){
-  //     errors.email='Required'
-  // }
-
-    
-  
-  //   return errors;
-  // }
   
 
 const Login = () => {
@@ -77,21 +61,6 @@ const handleSubmit = async (values, {setSubmitting, resetForm}) =>{
   }
 }
 
-//   const formik = useFormik({
-//     initialValues:{
-//         email:"",
-//         password:""
-        
-//     },
-//     validate,
-//     onSubmit: (values, onSubmitProps) => {
-//         console.log(values)
-//         handleSubmit(values)
-//          onSubmitProps.setSubmitting(false)
-//          onSubmitProps.resetForm()
-//     },
-    
-// })
   return (
     <Dialog>
       <DialogTrigger asChild>
@@ -100,11 +69,8 @@ const handleSubmit = async (values, {setSubmitting, resetForm}) =>{
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
           {/* <DialogTitle>Login</DialogTitle> */}
-          <h2 className="text-left text-2xl font-black font-serif">Welcome to Reel Event!</h2>
+          <h4 className="text-left text-2xl font-black font-serif">Welcome to USSSO class 94 event!</h4>
           <p className="text-left">Please sign-in to your account </p>
-          {/* <DialogDescription>
-            Make changes to your profile here. Click save when you're done.
-          </DialogDescription> */}
         </DialogHeader>
         <Formik initialValues ={{
            email:"",
