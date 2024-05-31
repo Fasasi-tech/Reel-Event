@@ -20,7 +20,15 @@ const page = ({params}) => {
     }  
 
     const {user} = data.data;
-    const formattedDate = user.createdAt.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+
+    const formatDate = (dateString) => {
+      const date = new Date(dateString);
+      return date.toLocaleDateString('en-US', {
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric',
+      });
+    };
   return ( 
     <div className='mt-24'>
         <div className='flex justify-start py-2'>
@@ -35,7 +43,7 @@ const page = ({params}) => {
         <p className='text-lg font-serif'><span className='text-[#83ed6b]'>Email: </span>{user.email}</p>
         <p className='text-lg font-serif'><span className='text-[#83ed6b]'> Phone: </span>{user.phone_number}</p>
         <p className='text-lg font-serif'><span className='text-[#83ed6b]'>State: </span>{user.state}</p>
-        <p className='text-lg font-serif'><span className='text-[#83ed6b]'>Date Registered: </span>{user.formattedDate} </p>
+        <p className='text-lg font-serif'><span className='text-[#83ed6b]'>Date Registered: </span>{formatDate(user.createdAt)}</p>
       </div>
         ):(
             <p>Invitee not found!</p>
